@@ -13,7 +13,7 @@ OpenAI.api_key = os.environ.get("OPENAI_API_KEY")
 PROMPT_TEMPLATE_JSON = '''
 {
     "context": "Message from user {text}.",
-    "question": "List of categories: Shopping, Groceries, Restaurants and eating out, Transportation, Entertainment, Health, Housing. What category does the user's purchase most likely fall into and how much was spent and with what currency? Use only English to answer",
+    "question": "List of categories: Shopping, Groceries, Eating out, Transportation, Entertainment, Health, Household, Travel, Utilities, Education, Savings, Subscriptions, Other. What category does the user's purchase most likely fall into and how much was spent and with what currency? Use only English to answer",
     "response_format": {
         "purchase_type": "",
         "amount spent": "",
@@ -38,7 +38,7 @@ def get_response(text):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant. When providing numerical values, please ensure that: Numbers are formatted without commas. Use a period (.) only if there is a fractional part. For example, '5,000' should be formatted as '5000' and '5,000.50' should be formatted as '5000.50'. Do not use commas in any numerical values."},
+            {"role": "system", "content": "When providing numerical values, please ensure that: Numbers are formatted without commas. Use a period (.) only if there is a fractional part. For example, '5,000' should be formatted as '5000' and '5,000.50' should be formatted as '5000.50'. Do not use commas in any numerical values."},
             {"role": "user", "content": formatted_prompt}
                   ]
         )
